@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Pojišťovny</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .insurance-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .insurance-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            background-color: white;
+            padding: 10px;
+        }
+
+        .insurance-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .info-value a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .info-value a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-box {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-name {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .contact-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .contact-number a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .contact-number a:hover {
+            text-decoration: underline;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: #0b7dda;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .error-message {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DETAIL POJIŠŤOVNY</h1>
+
+        <div class="info-card" id="insuranceInfo">
+            <p class="error-message">Načítám data...</p>
+        </div>
+
+        <button class="back-button" onclick="goBack()">← Zpět</button>
+    </div>
+
+    <script>
+        async function loadInsuranceInfo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const insuranceKey = urlParams.get('id');
+
+            if (!insuranceKey) {
+                document.getElementById('insuranceInfo').innerHTML = '<p class="error-message" style="color:#333;">Pojišťovna nebyla vybrána.</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch('../insurance.json');
+                const data = await response.json();
+                const insurance = data[insuranceKey];
+
+                if (!insurance) {
+                    document.getElementById('insuranceInfo').innerHTML = '<p class="error-message" style="color:#333;">Pojišťovna nenalezena.</p>';
+                    return;
+                }
+
+                document.getElementById('insuranceInfo').innerHTML = `
+                    <div class="insurance-header">
+                        <img src="../images/insurance/${insurance.logo}" alt="${insurance.name}" class="insurance-logo" onerror="this.style.display='none'">
+                        <div class="insurance-name">${insurance.name}</div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-label">Webové stránky</div>
+                        <div class="info-value"><a href="${insurance.web}" target="_blank">${insurance.web}</a></div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="info-label">Kontakty</div>
+                        <div class="contact-box">
+                            <div class="contact-name">${insurance.contact1name}</div>
+                            <div class="contact-number"><a href="tel:${insurance.contact1num}">${insurance.contact1num}</a></div>
+                        </div>
+                        <div class="contact-box">
+                            <div class="contact-name">${insurance.contact2name}</div>
+                            <div class="contact-number"><a href="tel:${insurance.contact2num}">${insurance.contact2num}</a></div>
+                        </div>
+                    </div>
+                `;
+            } catch (e) {
+                document.getElementById('insuranceInfo').innerHTML = '<p class="error-message" style="color:#333;">Nepodařilo se načíst data pojišťovny.</p>';
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        loadInsuranceInfo();
+    </script>
+</body>
+</html>

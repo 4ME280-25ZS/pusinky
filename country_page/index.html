@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Země</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .country-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .country-flag {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .country-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .contact-box {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-name {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .contact-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .contact-number a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .contact-number a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-number.empty {
+            color: #999;
+            font-size: 16px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: #0b7dda;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .error-message {
+            text-align: center;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EMERGENCY KONTAKTY</h1>
+
+        <div class="info-card" id="countryInfo">
+            <p class="loading">Načítám data...</p>
+        </div>
+
+        <button class="back-button" onclick="goBack()">← Zpět</button>
+    </div>
+
+    <script>
+        async function loadCountryInfo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const countryKey = urlParams.get('id');
+
+            if (!countryKey) {
+                document.getElementById('countryInfo').innerHTML = '<p class="error-message">Země nebyla vybrána.</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch('../countries_new.json');
+                const data = await response.json();
+                const country = data[countryKey];
+
+                if (!country) {
+                    document.getElementById('countryInfo').innerHTML = '<p class="error-message">Země nenalezena.</p>';
+                    return;
+                }
+
+                let contactsHTML = '';
+                
+                // Sbírej unikátní čísla - první výskyt čísla bude zobrazen
+                const usedNumbers = new Set();
+                
+                // Projdi všechny kontakty 1-6
+                for (let i = 1; i <= 6; i++) {
+                    const contactName = country[`contact${i}name`];
+                    const contactNum = country[`contact${i}num`];
+                    
+                    // Zobraz pouze pokud existuje name, num není prázdný a číslo ještě nebylo použito
+                    if (contactName && contactNum && contactNum !== '' && !usedNumbers.has(contactNum)) {
+                        usedNumbers.add(contactNum);
+                        contactsHTML += `
+                            <div class="contact-box">
+                                <div class="contact-name">${contactName}</div>
+                                <div class="contact-number"><a href="tel:${contactNum}">${contactNum}</a></div>
+                            </div>
+                        `;
+                    }
+                }
+
+                document.getElementById('countryInfo').innerHTML = `
+                    <div class="country-header">
+                        <img src="../images/flags/${countryKey}.svg" alt="${country.name}" class="country-flag" onerror="this.style.display='none'">
+                        <div class="country-name">${country.name}</div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="info-label">Tísňové kontakty</div>
+                        ${contactsHTML || '<p style="color:#999;">Žádné kontakty nejsou k dispozici.</p>'}
+                    </div>
+                `;
+            } catch (e) {
+                document.getElementById('countryInfo').innerHTML = '<p class="error-message">Nepodařilo se načíst data země.</p>';
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        loadCountryInfo();
+    </script>
+</body>
+</html>

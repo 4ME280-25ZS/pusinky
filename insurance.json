@@ -1,0 +1,138 @@
+{
+  "allianz": {
+    "name": "Allianz pojišťovna",
+    "logo": "allianz.png",
+    "web": "https://www.allianz.cz",
+    "contact1name": "Asistenční služba",
+    "contact1num": "+420241170000",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420241170123"
+  },
+  "axa": {
+    "name": "AXA Assistance",
+    "logo": "axa.png",
+    "web": "https://www.axa-assistance.cz",
+    "contact1name": "Asistenční služba",
+    "contact1num": "+420292292292",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420292292000"
+  },
+  "erv": {
+    "name": "ERV Evropská pojišťovna",
+    "logo": "erv.png",
+    "web": "https://www.ervpojistovna.cz",
+    "contact1name": "Asistenční služba",
+    "contact1num": "+420221860860",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420221860100"
+  },
+  "csob_pojistovna": {
+    "name": "ČSOB Pojišťovna",
+    "logo": "csob.png",
+    "web": "https://www.csobpoj.cz",
+    "contact1name": "Asistenční služba",
+    "contact1num": "+420466100777",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420466100100"
+  },
+  "uniqa": {
+    "name": "UNIQA pojišťovna",
+    "logo": "uniqa.png",
+    "web": "https://www.uniqa.cz",
+    "contact1name": "Asistenční služba",
+    "contact1num": "+420488125125",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420488125000"
+  },
+  "cpp": {
+    "name": "Česká podnikatelská pojišťovna",
+    "logo": "cpp.png",
+    "web": "https://www.cpp.cz",
+    "contact1name": "Asistenční služba",
+    "contact1num": "+420957444555",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420957444000"
+  },
+  "direct": {
+    "name": "Direct pojišťovna",
+    "logo": "direct.png",
+    "web": "https://www.direct.cz",
+    "contact1name": "Asistenční služba",
+    "contact1num": "+420221221221",
+    "contact2name": "Zákaznická podpora",
+    "contact2num": "+420221221000"
+  },
+  "colonnade": {
+    "name": "Colonnade Insurance",
+    "logo": "colonnade.png",
+    "web": "https://www.colonnade.cz",
+    "contact1name": "Asistenční služba",
+    "contact1num": "+420255734900",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420255734000"
+  },
+  "vzp": {
+    "name": "Všeobecná zdravotní pojišťovna ČR",
+    "logo": "vzp.png",
+    "web": "https://www.vzp.cz",
+    "contact1name": "Klientská linka",
+    "contact1num": "+420952222222",
+    "contact2name": "Informační centrum",
+    "contact2num": "+420952222000"
+  },
+  "vozp": {
+    "name": "Vojenská zdravotní pojišťovna ČR",
+    "logo": "vozp.png",
+    "web": "https://www.vozp.cz",
+    "contact1name": "Klientská linka",
+    "contact1num": "+420466035111",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420466035000"
+  },
+  "cpzp": {
+    "name": "Česká průmyslová zdravotní pojišťovna",
+    "logo": "cpzp.png",
+    "web": "https://www.cpzp.cz",
+    "contact1name": "Klientská linka",
+    "contact1num": "+420810800000",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420810800100"
+  },
+  "ozp": {
+    "name": "Oborová zdravotní pojišťovna",
+    "logo": "ozp.png",
+    "web": "https://www.ozp.cz",
+    "contact1name": "Klientská linka",
+    "contact1num": "+420261105555",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420261105000"
+  },
+  "zpmv": {
+    "name": "Zdravotní pojišťovna MV ČR",
+    "logo": "zpmv.png",
+    "web": "https://www.zpmvcr.cz",
+    "contact1name": "Klientská linka",
+    "contact1num": "+420844211211",
+    "contact2name": "Informační centrum",
+    "contact2num": "+420844211000"
+  },
+  "rbp": {
+    "name": "RBP zdravotní pojišťovna",
+    "logo": "rbp.png",
+    "web": "https://www.rbp.cz",
+    "contact1name": "Klientská linka",
+    "contact1num": "+420596105555",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420596105000"
+  },
+  "zp_skoda": {
+    "name": "Zaměstnanecká pojišťovna Škoda",
+    "logo": "zpskoda.png",
+    "web": "https://www.zpskoda.cz",
+    "contact1name": "Klientská linka",
+    "contact1num": "+420326716111",
+    "contact2name": "Zákaznické centrum",
+    "contact2num": "+420326716000"
+  }
+}
+

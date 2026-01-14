@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Application</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            background-color: #4CAF50;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="handleEmergencyContacts()">EMERGENCY KONTAKTY</button>
+        <button onclick="handleCardBlock()">BLOKACE KARTY</button>
+        <button onclick="handleInsurance()">POJIŠŤOVNA</button>
+    </div>
+
+    <script>
+        function handleEmergencyContacts() {
+            window.location.href = "choose_country/index.html";
+        }
+
+        function handleCardBlock() {
+            console.log("Card block clicked");
+            // Add functionality here
+        }
+
+        function handleInsurance() {
+            window.location.href = "choose_insurance/index.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Výběr Země</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .country-button {
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            gap: 10px;
+        }
+
+        .country-button:hover {
+            background-color: #45a049;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .country-button:active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .country-button img {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .flag-img {
+            width: 60px;
+            height: 40px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .country-name {
+            font-size: 12px;
+            line-height: 1.2;
+        }
+
+        /* Scrollbar styling */
+        .country-grid::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .country-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .country-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .country-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: #0b7dda;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            background-color: white;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: #888;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>VYBERTE ZEMI</h1>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Vyhledat zemi" autocomplete="off">
+        </div>
+
+        <div class="country-grid" id="countryGrid">
+            <!-- Buttons will be loaded here by JS -->
+        </div>
+
+        <button class="back-button" onclick="goBack()">← Zpět</button>
+    </div>
+
+    <script>
+        let countriesData = {};
+
+        async function loadCountries() {
+            try {
+                const response = await fetch('../countries_new.json');
+                countriesData = await response.json();
+                renderCountries(countriesData);
+            } catch (e) {
+                document.getElementById('countryGrid').innerHTML = '<p style="color:white;">Nepodařilo se načíst seznam zemí.</p>';
+            }
+        }
+
+        function renderCountries(data) {
+            const grid = document.getElementById('countryGrid');
+            grid.innerHTML = '';
+            
+            const entries = Object.entries(data);
+            
+            if (entries.length === 0) {
+                grid.innerHTML = '<p class="no-results">Žádné země neodpovídají vašemu hledání.</p>';
+                return;
+            }
+            
+            entries.forEach(([key, country]) => {
+                const btn = document.createElement('button');
+                btn.className = 'country-button';
+                
+                const flagDiv = document.createElement('div');
+                flagDiv.className = 'flag-img';
+                flagDiv.style.backgroundImage = `url('../images/flags/${key}.svg')`;
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'country-name';
+                nameSpan.textContent = country.name;
+                
+                btn.appendChild(flagDiv);
+                btn.appendChild(nameSpan);
+                btn.onclick = () => selectCountry(key);
+                grid.appendChild(btn);
+            });
+        }
+
+        function removeDiacritics(str) {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function filterCountries(searchTerm) {
+            if (searchTerm.length < 3) {
+                renderCountries(countriesData);
+                return;
+            }
+            
+            const term = removeDiacritics(searchTerm.toLowerCase());
+            const filtered = {};
+            
+            Object.entries(countriesData).forEach(([key, country]) => {
+                const czechName = removeDiacritics(country.name.toLowerCase());
+                const englishName = key.toLowerCase();
+                
+                if (czechName.startsWith(term) || englishName.startsWith(term)) {
+                    filtered[key] = country;
+                }
+            });
+            
+            renderCountries(filtered);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = '';
+            searchInput.addEventListener('input', (e) => {
+                filterCountries(e.target.value);
+            });
+        });
+
+        // Vyprázdní search i při návratu tlačítkem zpět
+        window.addEventListener('pageshow', () => {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = '';
+            renderCountries(countriesData);
+        });
+
+        function selectCountry(countryKey) {
+            window.location.href = '../country_page/index.html?id=' + countryKey;
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        loadCountries();
+    </script>
+</body>
+</html>
