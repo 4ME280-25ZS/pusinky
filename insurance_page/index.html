@@ -298,10 +298,12 @@
                 
                 // Kontakt 1
                 if (insurance.contact1name && insurance.contact1num) {
+                    let icon = "phone.png";
+                    if (insurance.contact1name.toLowerCase().includes("asistenční")) icon = "assistent.png";
                     contactsHTML += `
                         <div class="contact-box">
                             <div class="service-row">
-                                <div class="phone-icon-box"><img src="../images/icons/phone.png" alt=""></div>
+                                <div class="phone-icon-box"><img src="../images/icons/${icon}" alt=""></div>
                                 <div class="contact-name">${insurance.contact1name}</div>
                             </div>
                             <div class="contact-number"><a href="tel:${insurance.contact1num}">${insurance.contact1num}</a></div>
@@ -311,10 +313,12 @@
                 
                 // Kontakt 2
                 if (insurance.contact2name && insurance.contact2num) {
+                    let icon = "phone.png";
+                    if (insurance.contact2name.toLowerCase().includes("asistenční")) icon = "assistent.png";
                     contactsHTML += `
                         <div class="contact-box">
                             <div class="service-row">
-                                <div class="phone-icon-box"><img src="../images/icons/phone.png" alt=""></div>
+                                <div class="phone-icon-box"><img src="../images/icons/${icon}" alt=""></div>
                                 <div class="contact-name">${insurance.contact2name}</div>
                             </div>
                             <div class="contact-number"><a href="tel:${insurance.contact2num}">${insurance.contact2num}</a></div>

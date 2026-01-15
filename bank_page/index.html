@@ -300,10 +300,14 @@
                 
                 // Kontakt 1
                 if (bank.contact1name && bank.contact1num) {
+                    let icon = "phone.png";
+                    const nameLower = bank.contact1name.toLowerCase();
+                    if (nameLower.includes("asistenční")) icon = "assistent.png";
+                    else if (nameLower.includes("blokace karty")) icon = "card.png";
                     contactsHTML += `
                         <div class="contact-box">
                             <div class="service-row">
-                                <div class="phone-icon-box"><img src="../images/icons/phone.png" alt=""></div>
+                                <div class="phone-icon-box"><img src="../images/icons/${icon}" alt=""></div>
                                 <div class="contact-name">${bank.contact1name}</div>
                             </div>
                             <div class="contact-number"><a href="tel:${bank.contact1num}">${bank.contact1num}</a></div>
@@ -313,10 +317,14 @@
                 
                 // Kontakt 2
                 if (bank.contact2name && bank.contact2num) {
+                    let icon = "phone.png";
+                    const nameLower = bank.contact2name.toLowerCase();
+                    if (nameLower.includes("asistenční")) icon = "assistent.png";
+                    else if (nameLower.includes("blokace karty")) icon = "card.png";
                     contactsHTML += `
                         <div class="contact-box">
                             <div class="service-row">
-                                <div class="phone-icon-box"><img src="../images/icons/phone.png" alt=""></div>
+                                <div class="phone-icon-box"><img src="../images/icons/${icon}" alt=""></div>
                                 <div class="contact-name">${bank.contact2name}</div>
                             </div>
                             <div class="contact-number"><a href="tel:${bank.contact2num}">${bank.contact2num}</a></div>

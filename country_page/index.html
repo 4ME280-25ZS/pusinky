@@ -301,14 +301,21 @@
                 for (let i = 1; i <= 6; i++) {
                     const contactName = country[`contact${i}name`];
                     const contactNum = country[`contact${i}num`];
-                    
+                    let icon = "phone.png";
+                    if (contactName) {
+                        const nameLower = contactName.toLowerCase();
+                        if (nameLower.includes("záchranná")) icon = "hospital.png";
+                        else if (nameLower.includes("hasič")) icon = "fire.png";
+                        else if (nameLower.includes("ambas")) icon = "embasy.png";
+                        else if (nameLower.includes("policie")) icon = "police.png";
+                    }
                     // Zobraz pouze pokud existuje name, num není prázdný a číslo ještě nebylo použito
                     if (contactName && contactNum && contactNum !== '' && !usedNumbers.has(contactNum)) {
                         usedNumbers.add(contactNum);
                         contactsHTML += `
                             <div class="contact-box">
                                 <div class="service-row">
-                                    <div class="phone-icon-box"><img src="../images/icons/phone.png" alt=""></div>
+                                    <div class="phone-icon-box"><img src="../images/icons/${icon}" alt=""></div>
                                     <div class="contact-name">${contactName}</div>
                                 </div>
                                 <div class="contact-number"><a href="tel:${contactNum}">${contactNum}</a></div>
