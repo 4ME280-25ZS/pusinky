@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Application</title>
+    <title>Safe Travels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,8 +16,9 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(to top, #577C8E 0%, #C7D9E5 100%);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -24,39 +28,70 @@
         .container {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 20px;
             width: 100%;
             max-width: 400px;
         }
 
         button {
-            padding: 20px;
+            width: 230px;
+            height: 60px;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             border: none;
-            border-radius: 8px;
+            border-radius: 100px;
             cursor: pointer;
             transition: all 0.3s ease;
             color: white;
-            background-color: #4CAF50;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #304057;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #3d506b;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         button:active {
             transform: translateY(0);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+            .site-logo {
+            width: 180px;
+            margin-bottom: 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tagline {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: #304057;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            color: #304057;
+            margin-top: 30px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <img src="logo.svg" alt="Safe Travels" class="site-logo">
+    <p class="tagline">Cestuj s klidem a jistotou</p>
     <div class="container">
-        <button onclick="handleEmergencyContacts()">EMERGENCY KONTAKTY</button>
+        <button onclick="handleEmergencyContacts()">SOS</button>
         <button onclick="handleCardBlock()">BLOKACE KARTY</button>
         <button onclick="handleInsurance()">POJIŠŤOVNA</button>
     </div>
@@ -67,13 +102,14 @@
         }
 
         function handleCardBlock() {
-            console.log("Card block clicked");
-            // Add functionality here
+            window.location.href = "choose_bank/index.html";
         }
 
         function handleInsurance() {
             window.location.href = "choose_insurance/index.html";
         }
     </script>
+
+    <footer class="footer">Copyright 2026 Pusinky. Všechna práva vyhrazena.</footer>
 </body>
 </html>
