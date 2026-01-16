@@ -446,7 +446,13 @@
                         btn.textContent = 'Přístup zamítnut';
                         btn.style.background = '#fff';
                         btn.style.color = '#304057';
-                        alert('Pro nalezení vaší lokace musíte v nastavení povolit sdílení polohy s vaším prohlížečem');
+                        // Rozlišení mobil/desktop
+                        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                        if (isMobile) {
+                            alert('Pro nalezení vaší lokace musíte v nastavení vašeho telefonu povolit sdílení polohy s prohlížečem. Následně stránku obnovte.');
+                        } else {
+                            alert('Pro nalezení vaší lokace musíte webové stránce povolit sdílení vaší polohy.');
+                        }
                         setTimeout(() => {
                             fullResetBtn();
                         }, 2000);
