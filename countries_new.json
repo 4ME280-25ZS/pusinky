@@ -2366,5 +2366,21 @@
     "contact5num": "+85228021828",
     "contact6name": "Turistické info",
     "contact6num": "+85328336818"
+  },
+  "czechia": {
+    "name": "Česko",
+    "logo": "czechia.svg",
+    "contact1name": "Tísňová linka",
+    "contact1num": "112",
+    "contact2name": "Záchranná služba",
+    "contact2num": "155",
+    "contact3name": "Policie",
+    "contact3num": "158",
+    "contact4name": "Hasiči",
+    "contact4num": "150",
+    "contact5name": "Ambasáda ČR",
+    "contact5num": "",
+    "contact6name": "Turistické info",
+    "contact6num": ""
   }
 }

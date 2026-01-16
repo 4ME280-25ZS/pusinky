@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safe Travels - Země</title>    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>Safe Travels - Země</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet">    <style>
         * {
@@ -255,12 +257,14 @@
     <div class="container">
         <button class="back-button mobile-top" onclick="goBack()"><img src="../images/icons/go_back.png" alt="" class="back-icon"> Zpět</button>
         <h1>VYBERTE ZEMI</h1>
-
+        <div style="height:10px;"></div>
+        <div style="display:flex; justify-content:center;">
+            <button id="find-location-btn" style="background:#fff; color:#304057; width:200px; height:40px; border:none; border-radius:100px; font-family:'Poppins',sans-serif; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 6px rgba(0,0,0,0.08); cursor:pointer; margin-bottom:20px; margin-top:-10px;">najít moji polohu</button>
+        </div>
         <div class="search-container">
             <img src="../images/icons/search.png" alt="" class="search-icon">
             <input type="text" id="searchInput" class="search-input" placeholder="Vyhledat zemi" autocomplete="off">
         </div>
-
         <div class="country-grid" id="countryGrid">
             <!-- Buttons will be loaded here by JS -->
         </div>
@@ -359,6 +363,97 @@
         }
 
         loadCountries();
+
+        // Geolocation logic
+        function resetFindLocationBtn() {
+            const btn = document.getElementById('find-location-btn');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'najít moji polohu';
+                    btn.style.background = '#fff';
+                    btn.style.color = '#304057';
+                }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('find-location-btn');
+            let searching = false;
+            let searchController = null;
+            function fullResetBtn() {
+                resetFindLocationBtn();
+                searching = false;
+                if (searchController) {
+                    searchController.abort();
+                    searchController = null;
+                }
+            }
+            resetFindLocationBtn();
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    // Pokud je tlačítko ve stavu 'zjišťuji polohu...', kliknutí resetuje tlačítko a přeruší hledání
+                    if (btn.textContent === 'zjišťuji polohu...') {
+                        fullResetBtn();
+                        return;
+                    }
+                    if (!navigator.geolocation) {
+                        alert('Geolokace není podporována ve vašem prohlížeči.');
+                        return;
+                    }
+                    btn.disabled = false; // Povolit kliknutí i během hledání
+                    btn.textContent = 'zjišťuji polohu...';
+                        btn.style.background = '#304057';
+                        btn.style.color = '#fff';
+                    searching = true;
+                    searchController = new AbortController();
+                    navigator.geolocation.getCurrentPosition(async (pos) => {
+                        if (!searching) return; // Pokud bylo hledání přerušeno, nedělej nic
+                        const lat = pos.coords.latitude;
+                        const lon = pos.coords.longitude;
+                        try {
+                            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=3&addressdetails=1`;
+                            const res = await fetch(url, { signal: searchController.signal });
+                            const data = await res.json();
+                            let countryCode = data.address && data.address.country_code ? data.address.country_code.toLowerCase() : null;
+                            let foundKey = null;
+                            Object.entries(countriesData).forEach(([key, country]) => {
+                                if (key === countryCode || key === data.address.country.toLowerCase() || country.name.toLowerCase() === data.address.country.toLowerCase()) {
+                                    foundKey = key;
+                                }
+                            });
+                            if (foundKey) {
+                                selectCountry(foundKey);
+                            } else {
+                                btn.textContent = 'Zemi nelze určit';
+                                    btn.style.background = '#fff';
+                                    btn.style.color = '#304057';
+                                setTimeout(() => {
+                                    fullResetBtn();
+                                }, 2000);
+                            }
+                        } catch (e) {
+                            if (e.name === 'AbortError') {
+                                fullResetBtn();
+                            } else {
+                                btn.textContent = 'Chyba při zjišťování';
+                                    btn.style.background = '#fff';
+                                    btn.style.color = '#304057';
+                                setTimeout(() => {
+                                    fullResetBtn();
+                                }, 2000);
+                            }
+                        }
+                    }, (err) => {
+                        btn.textContent = 'Přístup zamítnut';
+                            btn.style.background = '#fff';
+                            btn.style.color = '#304057';
+                        setTimeout(() => {
+                            fullResetBtn();
+                        }, 2000);
+                    });
+                });
+            }
+        });
+        window.addEventListener('pageshow', resetFindLocationBtn);
     </script>
 
     <footer style="font-family: 'Inter', sans-serif; font-size: 11px; color: #304057; margin-top: 30px; text-align: center;">Copyright 2026 Pusinky. Všechna práva vyhrazena.</footer>
