@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Země</title>
-    <style>
+    <title>Safe Travels - Kontakty</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet">    <style>
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +16,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(to top, #577C8E 0%, #C7D9E5 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -32,81 +35,122 @@
         }
 
         .info-card {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
             padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            background-color: #C7D9E5;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
         .country-header {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
+            justify-content: center;
             margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
         }
 
         .country-flag {
-            width: 120px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 15px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         .country-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+            background-color: #304057;
+            padding: 15px 30px 15px 60px;
+            border-radius: 100px;
+            margin-left: -40px;
+            position: relative;
+            z-index: 1;
+            max-width: 200px;
+            line-height: 1.2;
         }
 
         .info-section {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding-left: 20px;
         }
 
-        .info-section:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .info-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-            font-weight: bold;
+        @media (max-width: 600px) {
+            .info-section {
+                grid-template-columns: 1fr;
+                padding-left: 0;
+            }
         }
 
         .contact-box {
-            background-color: #f5f5f5;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
         }
 
-        .contact-box:last-child {
-            margin-bottom: 0;
+        .service-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .phone-icon-box {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .phone-icon-box img {
+            width: 20px;
+            height: 20px;
         }
 
         .contact-name {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
+            height: 40px;
+            background-color: #304057;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            margin-left: -35px;
+            padding: 0 20px 0 45px;
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-number {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4CAF50;
+            width: 225px;
+            height: 50px;
+            background-color: white;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .contact-number a {
-            color: #4CAF50;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: #304057;
             text-decoration: none;
         }
 
@@ -114,28 +158,33 @@
             text-decoration: underline;
         }
 
-        .contact-number.empty {
-            color: #999;
-            font-size: 16px;
-        }
-
         .back-button {
             margin-top: 20px;
             padding: 12px 24px;
-            background-color: #2196F3;
+            background-color: #304057;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 100px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
             font-size: 16px;
+            text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .back-button:hover {
-            background-color: #0b7dda;
+            background-color: #3d506b;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-icon {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 5px;
         }
 
         .error-message {
@@ -149,17 +198,80 @@
             color: #666;
             font-size: 16px;
         }
+
+        .site-logo {
+            width: 180px;
+            margin-top: 30px;
+            margin-bottom: 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .header-row {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .header-row .site-logo {
+            margin-top: 0;
+        }
+
+        .header-row .back-button {
+            position: absolute;
+            left: calc(50% - 340px);
+            top: -20px;
+        }
+
+        .tagline {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: #304057;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .back-button.mobile-top {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .header-row {
+                display: none;
+            }
+            .tagline {
+                display: none;
+            }
+            .back-button.mobile-top {
+                display: block;
+                margin: 0 auto 20px auto;
+                position: static;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .container .back-button.mobile-top {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="header-row">
+        <button class="back-button" onclick="goBack()"><img src="../images/icons/go_back.png" alt="" class="back-icon"> Zpět</button>
+        <img src="../logo.svg" alt="Safe Travels" class="site-logo">
+    </div>
+    <p class="tagline">Cestuj s klidem a jistotou</p>
     <div class="container">
-        <h1>EMERGENCY KONTAKTY</h1>
-
+        <button class="back-button mobile-top" onclick="goBack()"><img src="../images/icons/go_back.png" alt="" class="back-icon"> Zpět</button>
         <div class="info-card" id="countryInfo">
             <p class="loading">Načítám data...</p>
         </div>
-
-        <button class="back-button" onclick="goBack()">← Zpět</button>
     </div>
 
     <script>
@@ -191,13 +303,23 @@
                 for (let i = 1; i <= 6; i++) {
                     const contactName = country[`contact${i}name`];
                     const contactNum = country[`contact${i}num`];
-                    
+                    let icon = "phone.png";
+                    if (contactName) {
+                        const nameLower = contactName.toLowerCase();
+                        if (nameLower.includes("záchranná")) icon = "hospital.png";
+                        else if (nameLower.includes("hasič")) icon = "fire.png";
+                        else if (nameLower.includes("ambas")) icon = "embasy.png";
+                        else if (nameLower.includes("policie")) icon = "police.png";
+                    }
                     // Zobraz pouze pokud existuje name, num není prázdný a číslo ještě nebylo použito
                     if (contactName && contactNum && contactNum !== '' && !usedNumbers.has(contactNum)) {
                         usedNumbers.add(contactNum);
                         contactsHTML += `
                             <div class="contact-box">
-                                <div class="contact-name">${contactName}</div>
+                                <div class="service-row">
+                                    <div class="phone-icon-box"><img src="../images/icons/${icon}" alt=""></div>
+                                    <div class="contact-name">${contactName}</div>
+                                </div>
                                 <div class="contact-number"><a href="tel:${contactNum}">${contactNum}</a></div>
                             </div>
                         `;
@@ -207,14 +329,22 @@
                 document.getElementById('countryInfo').innerHTML = `
                     <div class="country-header">
                         <img src="../images/flags/${countryKey}.svg" alt="${country.name}" class="country-flag" onerror="this.style.display='none'">
-                        <div class="country-name">${country.name}</div>
+                        <div class="country-name" id="countryNameEl">${country.name}</div>
                     </div>
 
                     <div class="info-section">
-                        <div class="info-label">Tísňové kontakty</div>
-                        ${contactsHTML || '<p style="color:#999;">Žádné kontakty nejsou k dispozici.</p>'}
+                        ${contactsHTML || '<p style="color:white;">Žádné kontakty nejsou k dispozici.</p>'}
                     </div>
                 `;
+
+                // Dynamicky přizpůsob velikost fontu podle délky názvu
+                const nameEl = document.getElementById('countryNameEl');
+                const nameLength = country.name.length;
+                if (nameLength > 20) {
+                    nameEl.style.fontSize = '12px';
+                } else if (nameLength > 15) {
+                    nameEl.style.fontSize = '14px';
+                }
             } catch (e) {
                 document.getElementById('countryInfo').innerHTML = '<p class="error-message">Nepodařilo se načíst data země.</p>';
             }
@@ -226,5 +356,7 @@
 
         loadCountryInfo();
     </script>
+
+    <footer style="font-family: 'Inter', sans-serif; font-size: 11px; color: #304057; margin-top: 30px; text-align: center;">Copyright 2026 Pusinky. Všechna práva vyhrazena.</footer>
 </body>
 </html>

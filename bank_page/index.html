@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safe Travels - Pojišťovna</title>
+    <title>Safe Travels - Banka</title>
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet">    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -41,7 +42,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
-        .insurance-header {
+        .bank-header {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -49,7 +50,7 @@
             margin-bottom: 25px;
         }
 
-        .insurance-logo {
+        .bank-logo {
             width: 100px;
             height: 100px;
             object-fit: contain;
@@ -60,7 +61,7 @@
             z-index: 2;
         }
 
-        .insurance-name {
+        .bank-name {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             font-size: 16px;
@@ -271,67 +272,71 @@
     <p class="tagline">Cestuj s klidem a jistotou</p>
     <div class="container">
         <button class="back-button mobile-top" onclick="goBack()"><img src="../images/icons/go_back.png" alt="" class="back-icon"> Zpět</button>
-        <div class="info-card" id="insuranceInfo">
+        <div class="info-card" id="bankInfo">
             <p class="loading">Načítám data...</p>
         </div>
     </div>
 
     <script>
-        async function loadInsuranceInfo() {
+        async function loadBankInfo() {
             const urlParams = new URLSearchParams(window.location.search);
-            const insuranceKey = urlParams.get('id');
+            const bankKey = urlParams.get('id');
 
-            if (!insuranceKey) {
-                document.getElementById('insuranceInfo').innerHTML = '<p class="error-message">Pojišťovna nebyla vybrána.</p>';
+            if (!bankKey) {
+                document.getElementById('bankInfo').innerHTML = '<p class="error-message">Banka nebyla vybrána.</p>';
                 return;
             }
 
             try {
-                const response = await fetch('../insurance.json');
+                const response = await fetch('../banks.json');
                 const data = await response.json();
-                const insurance = data[insuranceKey];
+                const bank = data[bankKey];
 
-                if (!insurance) {
-                    document.getElementById('insuranceInfo').innerHTML = '<p class="error-message">Pojišťovna nenalezena.</p>';
+                if (!bank) {
+                    document.getElementById('bankInfo').innerHTML = '<p class="error-message">Banka nenalezena.</p>';
                     return;
                 }
 
                 let contactsHTML = '';
                 
                 // Kontakt 1
-                if (insurance.contact1name && insurance.contact1num) {
+                if (bank.contact1name && bank.contact1num) {
                     let icon = "phone.png";
-                    if (insurance.contact1name.toLowerCase().includes("asistenční")) icon = "assistent.png";
+                    const nameLower = bank.contact1name.toLowerCase();
+                    if (nameLower.includes("asistenční")) icon = "assistent.png";
+                    else if (nameLower.includes("blokace karty")) icon = "card.png";
                     contactsHTML += `
                         <div class="contact-box">
                             <div class="service-row">
                                 <div class="phone-icon-box"><img src="../images/icons/${icon}" alt=""></div>
-                                <div class="contact-name">${insurance.contact1name}</div>
+                                <div class="contact-name">${bank.contact1name}</div>
                             </div>
-                            <div class="contact-number"><a href="tel:${insurance.contact1num}">${insurance.contact1num}</a></div>
+                            <div class="contact-number"><a href="tel:${bank.contact1num}">${bank.contact1num}</a></div>
                         </div>
                     `;
                 }
                 
                 // Kontakt 2
-                if (insurance.contact2name && insurance.contact2num) {
+                if (bank.contact2name && bank.contact2num) {
                     let icon = "phone.png";
-                    if (insurance.contact2name.toLowerCase().includes("asistenční")) icon = "assistent.png";
+                    const nameLower = bank.contact2name.toLowerCase();
+                    if (nameLower.includes("asistenční")) icon = "assistent.png";
+                    else if (nameLower.includes("blokace karty")) icon = "card.png";
                     contactsHTML += `
                         <div class="contact-box">
                             <div class="service-row">
                                 <div class="phone-icon-box"><img src="../images/icons/${icon}" alt=""></div>
-                                <div class="contact-name">${insurance.contact2name}</div>
+                                <div class="contact-name">${bank.contact2name}</div>
                             </div>
-                            <div class="contact-number"><a href="tel:${insurance.contact2num}">${insurance.contact2num}</a></div>
+                            <div class="contact-number"><a href="tel:${bank.contact2num}">${bank.contact2num}</a></div>
                         </div>
                     `;
                 }
 
-                document.getElementById('insuranceInfo').innerHTML = `
-                    <div class="insurance-header">
-                        <img src="../images/insurance/${insurance.logo}" alt="${insurance.name}" class="insurance-logo" onerror="this.style.display='none'">
-                        <div class="insurance-name" id="insuranceNameEl">${insurance.name}</div>
+                document.getElementById('bankInfo').innerHTML = `
+                    <div class="bank-header">
+                        <img src="../images/bank/${bank.logo}" alt="${bank.name}" class="bank-logo" onerror="this.style.display='none'">
+                        <div class="bank-name" id="bankNameEl">${bank.name}</div>
                     </div>
 
                     <div class="info-section">
@@ -340,15 +345,15 @@
                 `;
 
                 // Dynamicky přizpůsob velikost fontu podle délky názvu
-                const nameEl = document.getElementById('insuranceNameEl');
-                const nameLength = insurance.name.length;
+                const nameEl = document.getElementById('bankNameEl');
+                const nameLength = bank.name.length;
                 if (nameLength > 20) {
                     nameEl.style.fontSize = '12px';
                 } else if (nameLength > 15) {
                     nameEl.style.fontSize = '14px';
                 }
             } catch (e) {
-                document.getElementById('insuranceInfo').innerHTML = '<p class="error-message">Nepodařilo se načíst data pojišťovny.</p>';
+                document.getElementById('bankInfo').innerHTML = '<p class="error-message">Nepodařilo se načíst data banky.</p>';
             }
         }
 
@@ -356,7 +361,7 @@
             window.history.back();
         }
 
-        loadInsuranceInfo();
+        loadBankInfo();
     </script>
 
     <footer style="font-family: 'Inter', sans-serif; font-size: 11px; color: #304057; margin-top: 30px; text-align: center;">Copyright 2026 Pusinky. Všechna práva vyhrazena.</footer>

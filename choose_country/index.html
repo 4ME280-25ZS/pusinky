@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Výběr Země</title>
-    <style>
+    <title>Safe Travels - Země</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet">    <style>
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +16,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(to top, #577C8E 0%, #C7D9E5 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -25,46 +28,58 @@
 
         h1 {
             text-align: center;
-            color: white;
-            margin-bottom: 30px;
-            font-size: 32px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            color: #304057;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
         }
 
         .country-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(5, 100px);
             gap: 20px;
-            max-height: 600px;
-            overflow-y: auto;
             padding: 15px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            justify-content: center;
         }
 
-        .country-button {
-            aspect-ratio: 1;
-            border: none;
-            border-radius: 20px;
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        @media (max-width: 600px) {
+            .country-grid {
+                grid-template-columns: repeat(2, 100px);
+                gap: 40px;
+            }
+        }
+
+        .country-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 8px;
+        }
+
+        .country-button {
+            width: 100px;
+            height: 100px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        .country-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            color: #304057;
             text-align: center;
-            padding: 15px;
-            gap: 10px;
         }
 
         .country-button:hover {
-            background-color: #45a049;
             transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
@@ -72,29 +87,6 @@
         .country-button:active {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .country-button img {
-            width: 60px;
-            height: 40px;
-            object-fit: cover;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .flag-img {
-            width: 60px;
-            height: 40px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .country-name {
-            font-size: 12px;
-            line-height: 1.2;
         }
 
         /* Scrollbar styling */
@@ -119,36 +111,62 @@
         .back-button {
             margin-top: 20px;
             padding: 12px 24px;
-            background-color: #2196F3;
+            background-color: #304057;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 100px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
             font-size: 16px;
+            text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .back-button:hover {
-            background-color: #0b7dda;
+            background-color: #3d506b;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
+        .back-icon {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
         .search-container {
             margin-bottom: 20px;
+            position: relative;
+            width: 500px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
         }
 
         .search-input {
             width: 100%;
-            padding: 15px 20px;
+            padding: 15px 20px 15px 45px;
             font-size: 16px;
             border: none;
-            border-radius: 10px;
+            border-radius: 100px;
             background-color: rgba(255, 255, 255, 0.9);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             outline: none;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
         .search-input:focus {
@@ -167,21 +185,89 @@
             font-size: 16px;
             padding: 20px;
         }
+
+        .site-logo {
+            width: 180px;
+            margin-top: 30px;
+            margin-bottom: 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .header-row {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .header-row .site-logo {
+            margin-top: 0;
+        }
+
+        .header-row .back-button {
+            position: absolute;
+            left: calc(50% - 340px);
+            top: -20px;
+        }
+
+        .tagline {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: #304057;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .back-button.mobile-top {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .header-row {
+                display: none;
+            }
+            .tagline {
+                display: none;
+            }
+            .back-button.mobile-top {
+                display: block;
+                margin: 0 auto 20px auto;
+                position: static;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .container .back-button.mobile-top {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="header-row">
+        <button class="back-button" onclick="goBack()"><img src="../images/icons/go_back.png" alt="" class="back-icon"> Zpět</button>
+        <img src="../logo.svg" alt="Safe Travels" class="site-logo">
+    </div>
+    <p class="tagline">Cestuj s klidem a jistotou</p>
     <div class="container">
+        <button class="back-button mobile-top" onclick="goBack()"><img src="../images/icons/go_back.png" alt="" class="back-icon"> Zpět</button>
         <h1>VYBERTE ZEMI</h1>
-
+        <div style="height:10px;"></div>
+        <div style="display:flex; justify-content:center;">
+            <button id="find-location-btn" style="background:#fff; color:#304057; width:200px; height:40px; border:none; border-radius:100px; font-family:'Poppins',sans-serif; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 6px rgba(0,0,0,0.08); cursor:pointer; margin-bottom:20px; margin-top:-10px;">najít moji polohu</button>
+        </div>
         <div class="search-container">
+            <img src="../images/icons/search.png" alt="" class="search-icon">
             <input type="text" id="searchInput" class="search-input" placeholder="Vyhledat zemi" autocomplete="off">
         </div>
-
         <div class="country-grid" id="countryGrid">
             <!-- Buttons will be loaded here by JS -->
         </div>
-
-        <button class="back-button" onclick="goBack()">← Zpět</button>
     </div>
 
     <script>
@@ -209,21 +295,22 @@
             }
             
             entries.forEach(([key, country]) => {
+                const item = document.createElement('div');
+                item.className = 'country-item';
+                
                 const btn = document.createElement('button');
                 btn.className = 'country-button';
-                
-                const flagDiv = document.createElement('div');
-                flagDiv.className = 'flag-img';
-                flagDiv.style.backgroundImage = `url('../images/flags/${key}.svg')`;
-                
-                const nameSpan = document.createElement('span');
-                nameSpan.className = 'country-name';
-                nameSpan.textContent = country.name;
-                
-                btn.appendChild(flagDiv);
-                btn.appendChild(nameSpan);
+                btn.style.backgroundImage = `url('../images/flags/${key}.svg')`;
+                btn.title = country.name;
                 btn.onclick = () => selectCountry(key);
-                grid.appendChild(btn);
+                
+                const name = document.createElement('span');
+                name.className = 'country-name';
+                name.textContent = country.name;
+                
+                item.appendChild(btn);
+                item.appendChild(name);
+                grid.appendChild(item);
             });
         }
 
@@ -276,6 +363,106 @@
         }
 
         loadCountries();
+
+        // Geolocation logic
+        function resetFindLocationBtn() {
+            const btn = document.getElementById('find-location-btn');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'najít moji polohu';
+                    btn.style.background = '#fff';
+                    btn.style.color = '#304057';
+                }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('find-location-btn');
+            let searching = false;
+            let searchController = null;
+            function fullResetBtn() {
+                resetFindLocationBtn();
+                searching = false;
+                if (searchController) {
+                    searchController.abort();
+                    searchController = null;
+                }
+            }
+            resetFindLocationBtn();
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    // Pokud je tlačítko ve stavu 'zjišťuji polohu...', kliknutí resetuje tlačítko a přeruší hledání
+                    if (btn.textContent === 'zjišťuji polohu...') {
+                        fullResetBtn();
+                        return;
+                    }
+                    if (!navigator.geolocation) {
+                        alert('Geolokace není podporována ve vašem prohlížeči.');
+                        return;
+                    }
+                    btn.disabled = false; // Povolit kliknutí i během hledání
+                    btn.textContent = 'zjišťuji polohu...';
+                        btn.style.background = '#304057';
+                        btn.style.color = '#fff';
+                    searching = true;
+                    searchController = new AbortController();
+                    navigator.geolocation.getCurrentPosition(async (pos) => {
+                        if (!searching) return; // Pokud bylo hledání přerušeno, nedělej nic
+                        const lat = pos.coords.latitude;
+                        const lon = pos.coords.longitude;
+                        try {
+                            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=3&addressdetails=1`;
+                            const res = await fetch(url, { signal: searchController.signal });
+                            const data = await res.json();
+                            let countryCode = data.address && data.address.country_code ? data.address.country_code.toLowerCase() : null;
+                            let foundKey = null;
+                            Object.entries(countriesData).forEach(([key, country]) => {
+                                if (key === countryCode || key === data.address.country.toLowerCase() || country.name.toLowerCase() === data.address.country.toLowerCase()) {
+                                    foundKey = key;
+                                }
+                            });
+                            if (foundKey) {
+                                selectCountry(foundKey);
+                            } else {
+                                btn.textContent = 'Zemi nelze určit';
+                                    btn.style.background = '#fff';
+                                    btn.style.color = '#304057';
+                                setTimeout(() => {
+                                    fullResetBtn();
+                                }, 2000);
+                            }
+                        } catch (e) {
+                            if (e.name === 'AbortError') {
+                                fullResetBtn();
+                            } else {
+                                btn.textContent = 'Chyba při zjišťování';
+                                    btn.style.background = '#fff';
+                                    btn.style.color = '#304057';
+                                setTimeout(() => {
+                                    fullResetBtn();
+                                }, 2000);
+                            }
+                        }
+                    }, (err) => {
+                        btn.textContent = 'Přístup zamítnut';
+                        btn.style.background = '#fff';
+                        btn.style.color = '#304057';
+                        // Rozlišení mobil/desktop
+                        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                        if (isMobile) {
+                            alert('Pro nalezení vaší lokace musíte v nastavení vašeho telefonu povolit sdílení polohy s prohlížečem. Následně stránku obnovte.');
+                        } else {
+                            alert('Pro nalezení vaší lokace musíte webové stránce povolit sdílení vaší polohy.');
+                        }
+                        setTimeout(() => {
+                            fullResetBtn();
+                        }, 2000);
+                    });
+                });
+            }
+        });
+        window.addEventListener('pageshow', resetFindLocationBtn);
     </script>
+
+    <footer style="font-family: 'Inter', sans-serif; font-size: 11px; color: #304057; margin-top: 30px; text-align: center;">Copyright 2026 Pusinky. Všechna práva vyhrazena.</footer>
 </body>
 </html>

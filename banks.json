@@ -1,0 +1,137 @@
+{
+  "airbank": {
+    "name": "Air Bank",
+    "logo": "airbank.png",
+    "web": "https://www.airbank.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420225204225",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420225204204"
+  },
+  "bankacreditas": {
+    "name": "Banka Creditas",
+    "logo": "bankacreditas.png",
+    "web": "https://www.bankacreditas.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420222999222",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420222999111"
+  },
+  "ceskasporitelna": {
+    "name": "Česká spořitelna",
+    "logo": "ceskasporitelna.png",
+    "web": "https://www.csas.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420800207207",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420956777956"
+  },
+  "csob": {
+    "name": "ČSOB",
+    "logo": "csob.png",
+    "web": "https://www.csob.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420495800900",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420495800800"
+  },
+  "equabank": {
+    "name": "Equa bank",
+    "logo": "equabank.png",
+    "web": "https://www.equabank.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420222010222",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420222010202"
+  },
+  "fiobanka": {
+    "name": "Fio banka",
+    "logo": "fiobanka.png",
+    "web": "https://www.fio.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420224346800",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420224346111"
+  },
+  "hellobank": {
+    "name": "Hello bank",
+    "logo": "hellobank.png",
+    "web": "https://www.hellobank.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420221650111",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420221650650"
+  },
+  "komercnibanka": {
+    "name": "Komerční banka",
+    "logo": "komercnibanka.png",
+    "web": "https://www.kb.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420800111155",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420955559559"
+  },
+  "mbank": {
+    "name": "mBank",
+    "logo": "mbank.png",
+    "web": "https://www.mbank.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420222111999",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420222111111"
+  },
+  "modrapyramida": {
+    "name": "Modrá pyramida",
+    "logo": "modrapyramida.png",
+    "web": "https://www.modrapyramida.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420222824111",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420222824222"
+  },
+  "moneta": {
+    "name": "MONETA Money Bank",
+    "logo": "moneta.png",
+    "web": "https://www.moneta.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420224443636",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420224441122"
+  },
+  "postovnisporitelna": {
+    "name": "Poštovní spořitelna",
+    "logo": "postovnisporitelna.png",
+    "web": "https://www.postovnisporitelna.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420495800900",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420800216216"
+  },
+  "raiffeisen": {
+    "name": "Raiffeisenbank",
+    "logo": "raiffeisen.png",
+    "web": "https://www.rb.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420412446633",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420412440000"
+  },
+  "trinitybank": {
+    "name": "Trinity Bank",
+    "logo": "trinitybank.png",
+    "web": "https://www.trinitybank.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420800888000",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420221510510"
+  },
+  "unicreditbank": {
+    "name": "UniCredit Bank",
+    "logo": "unicreditbank.png",
+    "web": "https://www.unicreditbank.cz",
+    "contact1name": "Blokace karty",
+    "contact1num": "+420955555800",
+    "contact2name": "Zákaznická linka",
+    "contact2num": "+420221210031"
+  }
+}
