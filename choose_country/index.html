@@ -444,8 +444,9 @@
                         }
                     }, (err) => {
                         btn.textContent = 'Přístup zamítnut';
-                            btn.style.background = '#fff';
-                            btn.style.color = '#304057';
+                        btn.style.background = '#fff';
+                        btn.style.color = '#304057';
+                        alert('Pro nalezení vaší lokace musíte v nastavení povolit sdílení polohy s vaším prohlížečem');
                         setTimeout(() => {
                             fullResetBtn();
                         }, 2000);
